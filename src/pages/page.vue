@@ -30,7 +30,7 @@ export default{
       unselected_animal: [],
       selected_animal: [],
       select: '小老虎',
-      add: '',
+      add: 'aa',
       danger: '大老虎'
     }
   },
