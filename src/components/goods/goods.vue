@@ -52,7 +52,8 @@ export default {
   data () {
     return {
       classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
-      goods: []
+      goods: [],
+      cute: '小兔子'
     }
   },
   async created () {
