@@ -28,7 +28,9 @@ export default{
       isLoading: true,
       isShow: false,
       unselected_animal: [],
-      selected_animal: []
+      selected_animal: [],
+      select: '',
+      unselect: ''
     }
   },
   methods: {
