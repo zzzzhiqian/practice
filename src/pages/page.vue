@@ -1,26 +1,29 @@
 <template>
 <div>
-<v-button @btnClick="change"  :bgTheme="'primary'" :btnSize="'btn-large'" :isLoading="isLoading">
-  错误
-</v-button>
-<v-pop :popWidth="500" :isShow.sync="isShow" @confirmClick="confirmClick"  @cancelClcik="cancelClcik">
-    <h2 class="title" slot="title">title</h2>
-    <div class="desc" slot="desc">
-      <v-transfer :unselected_animal="unselected_animal" :selected_animal="selected_animal"></v-transfer>
-    </div>
-</v-pop>
-<!-- <v-transfer :animalList="animalList"></v-transfer> -->
+  <v-table :thead="userInfo.thead" :list="userInfo.list" @whichPage="whichPage" :pageNums.sync="pageNums"></v-table>
+  <v-button @btnClick="change" :bgTheme="'primary'" :btnSize="'btn-large'" :isLoading="isLoading">
+    错误
+  </v-button>
+  <v-pop :popWidth="500" :isShow.sync="isShow" @confirmClick="confirmClick"  @cancelClcik="cancelClcik">
+      <h2 class="title" slot="title">title</h2>
+      <div class="desc" slot="desc">
+        <v-transfer :unselected_animal="unselected_animal" :selected_animal="selected_animal"></v-transfer>
+      </div>
+  </v-pop>
+  <!-- <v-transfer :animalList="animalList"></v-transfer> -->
 </div>
 </template>
 <script type="text/ecmascript-6">
 import vButton from '../components/button/button'
 import vPop from '../components/pop/pop'
 import vTransfer from '../components/transfer/transfer'
+import vTable from '../components/table/table'
 export default{
   components: {
     vButton,
     vPop,
-    vTransfer
+    vTransfer,
+    vTable
   },
   data () {
     return {
@@ -29,9 +32,31 @@ export default{
       isShow: false,
       unselected_animal: [],
       selected_animal: [],
-      select: '小老虎',
-      add: 'aa',
-      danger: '大老虎'
+      pageNums: '',
+      userInfo: {
+        thead: [{
+          id: 'name',
+          name: '名字'
+        }, {
+          id: 'age',
+          name: '年龄'
+        }, {
+          id: 'gender',
+          name: '性别'
+        }, {
+          id: 'height',
+          name: '身高'
+        }],
+        list: []
+      }
+    }
+  },
+  async created () {
+    try {
+      const res = await this.$axios.get('http://localhost:3000/user')
+      this.userInfo.list = res
+    } catch (e) {
+      console.log(e.message || e.data['error_msg'] || e.statusText)
     }
   },
   methods: {
@@ -54,6 +79,9 @@ export default{
         console.log(e.message || e.data['error_msg'] || e.statusText)
       }
       this.isShow = true
+    },
+    whichPage (e) {
+      // console.log(e)
     },
     confirmClick () {
     },

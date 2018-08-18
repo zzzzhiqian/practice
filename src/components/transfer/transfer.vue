@@ -75,15 +75,15 @@ export default{
     //   // }
     // }
   },
-  watch: {
-    pick (newData, oldData) {
-      // console.log(e1)
-      // console.log(e2)
-      this.unselects = this.selected_animals.filter(ele => {
-        return !!ele.name.match(newData)
-      })
-    }
-  },
+  // watch: {
+  //   pick (newData, oldData) {
+  //     // console.log(e1)
+  //     // console.log(e2)
+  //     this.unselects = this.selected_animals.filter(ele => {
+  //       return !!ele.name.match(newData)
+  //     })
+  //   }
+  // },
   computed: {
     allUnselect () {
       return this.unselected_animals.filter(ele => {
